@@ -9,3 +9,15 @@ export const validarMiddlewareEmpleado=[
         .isNumeric().withMessage('Ingrese un numero valido'),
     body('cargo').notEmpty().escape().withMessage('Ingrese un cargo valido')
 ]
+
+export const validarUsuario=[
+    body('email').notEmpty().escape().withMessage('El correo es obligatorio'),
+    body('password')
+        .notEmpty().escape().withMessage('La contraseña es obligatori')
+        .isLength({min:8}).withMessage('Los caracteres deben ser minimo 8'),
+    body('rol')
+        .notEmpty().escape().withMessage("El rol es necesario"),
+    body('empleadoId')
+        .notEmpty().escape().withMessage("El id de empleado es necesario")
+        .isInt()
+]

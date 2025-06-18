@@ -1,6 +1,6 @@
 import express from 'express'
 import { crearEmpleado, editarEmpleado, eliminarEmpleado, obtenerEmpleado, obteniendoEmpleadoXid } from '../controller/Empleado.controller.js';
-import { validarMiddlewareEmpleado } from '../middleware/empleados.middleware.js';
+import { validarMiddlewareEmpleado } from '../middleware/middleware.js';
 
 const router=express.Router();
 
