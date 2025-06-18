@@ -1,21 +1,19 @@
-import { DataTypes } from "sequelize";
 import { sequelize } from "../db.js";
+import { DataTypes } from "sequelize";
 
-export const Usuarios=sequelize.define("Usuarios",{
+export const Oficina=sequelize.define("Oficina",{
     id:{
         type:DataTypes.INTEGER,
         primaryKey:true,
-        autoIncrement:true,
         allowNull:false
     },
-    email:{
-        type:DataTypes.STRING,
-        unique:true
-    },
-    password:{
+    nombre:{
         type:DataTypes.STRING
     },
-    idRol:{
+    direccion:{
+        type:DataTypes.STRING
+    },
+    capacidad:{
         type:DataTypes.INTEGER
     }
 })

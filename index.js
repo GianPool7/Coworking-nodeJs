@@ -1,8 +1,5 @@
-import { sequelize } from './db.js';
-import routerEmpleado from './routes/Empleado.routes.js'
 import app from './app.js';
-
-app.use('/api',routerEmpleado);
+import { sequelize } from './models/index.js';
 
 const conexion=async()=>{
     try {
