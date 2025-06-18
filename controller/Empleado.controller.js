@@ -1,18 +1,22 @@
 import { sequelize } from "../db.js";
 import { Empleado } from "../models/Empleado.js";
+import { validationResult } from "express-validator";
 
 export const obtenerEmpleado=async(req,res)=>{
     try {
         const data= await Empleado.findAll();
         res.status(200).json(data)
     } catch (error) {
-        res.status(500)
-        res.json("Error al obtener a todos los empleados")
+        res.status(500).json({error:"Error al obtener a todos los empleados"})
     }
 }
 
 export const crearEmpleado=async(req,res)=>{
-    const {nombres,apellidos,tipo_Documento,numero_Documento,cargo}=req.body
+    const errores=validationResult(req);
+    if (!errores.isEmpty()) {
+        return res.status(400).json({errores:errores.array()})
+    }
+    const { nombres, apellidos, tipo_Documento, numero_Documento, cargo } = req.body;
     try {
         const dataNew=await Empleado.create({
             nombres,
@@ -23,16 +27,22 @@ export const crearEmpleado=async(req,res)=>{
         })
         res.status(201).json(dataNew)
     } catch (error) {
-        res.status(500)
-        res.json("Error al crear empleados")
+        res.status(500).json({error:"Error al crear empleados"})
     }
 }
 
 export const editarEmpleado=async(req,res)=>{
+
+    const errores=validationResult(req);
+        if (!errores.isEmpty()) {
+            return res.status(400).json({errores:errores.array()})
+        }
+    
+    const { nombres, apellidos, tipo_Documento, numero_Documento, cargo } = req.body;
+    const {id}=req.params
+
     try {
-        const {nombres,apellidos,tipo_Documento,numero_Documento,cargo}=req.body
-        const {id}=req.params
-        const dataUpdate=await Empleado.update({
+        const [dataUpdate]=await Empleado.update({
             nombres,
             apellidos,
             tipo_Documento,
@@ -43,10 +53,14 @@ export const editarEmpleado=async(req,res)=>{
                 id
             }
         })
+
+        if (dataUpdate===0) {
+            return res.status(404).json({error:"Empleado no econtrado o sin cambios"})
+        }
+
         res.status(200).json(dataUpdate)
     } catch (error) {
-        res.status(500)
-        res.json("Error al actualizar")
+        res.status(500).json({error:"Error al actualizar"})
     }
 }
 
@@ -59,10 +73,15 @@ export const eliminarEmpleado=async(req,res)=>{
                 id
             }
         })
+
+        if (dataDelete===0) {
+            return res.status(404).json({error:"Empleado no encontrado"})
+        }
+
         res.status(200).json(dataDelete)
     } catch (error) {
-        res.status(500)
-        res.json("Error al eliminar")
+        console.log(error);
+        res.status(500).json({error:"Error al eliminar"})
     }
 
 }
@@ -75,9 +94,13 @@ export const obteniendoEmpleadoXid=async(req,res)=>{
                 id,
             }
         })
+
+        if (!dataXid) {
+            return res.status(404).json({error:"Empleado no encontrado",data:dataXid})
+        }
+
         res.status(200).json(dataXid)
     } catch (error) {
-        res.status(500)
-        res.json("Error al obtener empleado")
+        res.status(500).json({error:"Error al obtener empleado"})
     }
 }

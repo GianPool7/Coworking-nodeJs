@@ -1,11 +1,12 @@
 import express from 'express'
 import { crearEmpleado, editarEmpleado, eliminarEmpleado, obtenerEmpleado, obteniendoEmpleadoXid } from '../controller/Empleado.controller.js';
+import { validarMiddlewareEmpleado } from '../middleware/empleados.middleware.js';
 
 const router=express.Router();
 
 router.get('/Empleado',obtenerEmpleado);
-router.post('/Empleado',crearEmpleado);
-router.patch('/Empleado/:id',editarEmpleado);
+router.post('/Empleado',validarMiddlewareEmpleado,crearEmpleado);
+router.patch('/Empleado/:id',validarMiddlewareEmpleado,editarEmpleado);
 router.delete('/Empleado/:id',eliminarEmpleado);
 router.get('/Empleado/:id',obteniendoEmpleadoXid);
 
