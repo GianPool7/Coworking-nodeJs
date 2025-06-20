@@ -7,13 +7,14 @@ export const obtenerRoles=async(req,res)=>{
         if (data.length===0) {
             return res.status(404).json({error:"no hay roles"})
         }
-        res.send(200).json({
-            message:"Roles totales",
-            data
+        //console.log(data.length);
+        res.status(200).json({
+            message:`Roles totales, cantidad (${data.length})`,
+            data:data
         })
     } catch (error) {
         console.log("roles no disponibles");
-        res.send(500).json({
+        res.status(500).json({
             error:"no hay roles disponibles",
             error
         })
@@ -99,15 +100,15 @@ export const rolXid=async(req,res)=>{
         const data=await Rol.findByPk(id)
 
         if (data.length===0) {
-            return res.status(404).json({error:"no se encontro al usuuairo",data})
+            return res.status(404).json({error:"no se encontro al rol",data})
         }
 
         res.status(200).json({
-            message:"se encontro al usuario",
+            message:"se encontro al rol",
             data:data
         })
     } catch (error) {
-        console.log("no se encontro al usuario");
+        console.log("no se encontro al rol");
         res.status(500).json({
             error:"no se puede eliiminar",error
         })

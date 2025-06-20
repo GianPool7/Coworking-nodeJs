@@ -1,5 +1,6 @@
 import { sequelize } from '../db.js';
 import {Servicios} from '../models/Servicio.js';
+import { validationResult } from 'express-validator';
 
 export const obtenerServicio=async(req,res)=>{
     try {
@@ -26,6 +27,12 @@ export const obtenerServicio=async(req,res)=>{
 
 export const createServicio=async(req,res)=>{
 
+    const error=validationResult(req)
+
+    if (!error.isEmpty()) {
+        return res.status(400).json({error:error.array()})
+    }
+
     const {nombre}=req.body
 
     try {
@@ -46,6 +53,12 @@ export const createServicio=async(req,res)=>{
 }
 
 export const actualizarServicio=async(req,res)=>{
+
+    const errores=validationResult(req)
+    if (!errores.isEmpty()) {
+        return res.status(400).json({errores:errores.array()})
+    }
+
     const {nombre}=req.body
     const {id}=req.params
 

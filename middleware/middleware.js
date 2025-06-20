@@ -19,5 +19,9 @@ export const validarUsuario=[
         .notEmpty().escape().withMessage("El rol es necesario"),
     body('empleadoId')
         .notEmpty().escape().withMessage("El id de empleado es necesario")
-        .isInt()
+]
+
+export const validarServicio=[
+    body('nombre')
+        .notEmpty().escape().withMessage("El nombre del servicio es obligatorio")
 ]
