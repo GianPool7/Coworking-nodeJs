@@ -5,7 +5,8 @@ export const Pago=sequelize.define("Pago",{
     id:{
         type:DataTypes.INTEGER,
         primaryKey:true,
-        allowNull:false
+        allowNull:false,
+        autoIncrement: true
     },
     metodo_pago:{
         type:DataTypes.STRING

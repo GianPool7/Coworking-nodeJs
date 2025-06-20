@@ -40,7 +40,7 @@ export const crearRoles=async(req,res)=>{
     } catch (error) {
         console.log("No se pudo generar rol");
         res.status(500).json({
-            error:"no se generar el rol"
+            error:"no se generar el rol",error
         })
     }
 }

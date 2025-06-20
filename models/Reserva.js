@@ -5,7 +5,8 @@ export const Reserva=sequelize.define("Reserva",{
     id:{
         type:DataTypes.STRING,
         primaryKey:true,
-        allowNull:false
+        allowNull:false,
+        autoIncrement: true
     },
     hora_inicio:{
         type:DataTypes.TIME,

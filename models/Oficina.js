@@ -5,7 +5,8 @@ export const Oficina=sequelize.define("Oficina",{
     id:{
         type:DataTypes.INTEGER,
         primaryKey:true,
-        allowNull:false
+        allowNull:false,
+        autoIncrement: true
     },
     nombre:{
         type:DataTypes.STRING

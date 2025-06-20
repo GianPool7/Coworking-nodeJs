@@ -5,7 +5,8 @@ export const DatosPersonales=sequelize.define("DatosPersonales",{
     id:{
         type:DataTypes.INTEGER,
         primaryKey:true,
-        allowNull:false
+        allowNull:false,
+        autoIncrement: true
     },
     id_usuario:{
         type:DataTypes.INTEGER
