@@ -5,7 +5,7 @@ export const obtenerOficinas=async(req,res)=>{
     try {
         const data=await Oficina.findAll()
         if (data.length===0) {
-            res.status(404).json({error:"No hay datos"})
+            return res.status(404).json({error:"No hay datos"})
         }
         res.json(data)
     } catch (error) {
@@ -25,7 +25,7 @@ export const crearOficinas=async(req,res)=>{
         res.status(200).json(
             {
                 message:"oficina creada correctamente",
-                data:data
+                data
             }
         )
     } catch (error) {
@@ -54,7 +54,7 @@ export const actualizarOficina=async(req,res)=>{
     res.status(200).json(
         {
             message:"Oficina actualizada",
-            data:data
+            data
         }
     )
     } catch (error) {
@@ -76,6 +76,10 @@ export const eliminarOficina=async(req,res)=>{
                 id
             }
         })
+
+        if (dataDelete === 0) {
+            return res.status(404).json({ error: "Oficina no encontrada" })
+        }
 
         res.status(200).json(
             {
@@ -99,12 +103,7 @@ export const oficinaXid=async(req,res)=>{
     const {id}=req.params
 
     try {
-        const data= await Oficina.findByPk({
-            where:{
-                id
-            }
-        })
-
+        const data= await Oficina.findByPk(id)
         res.status(200).json(
             {
                 message:"Oficina encontrado",
