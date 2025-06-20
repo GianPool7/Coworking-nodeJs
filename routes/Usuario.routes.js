@@ -10,3 +10,5 @@ router.patch('/usuario/:id',validarUsuario,actualizarUsuario)
 router.delete('/usuario/:id',deleteUsuario)
 //
 router.get('/usuario/:id',obtenerUsuarioXid)
+
+export default router

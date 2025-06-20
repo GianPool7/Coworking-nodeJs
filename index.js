@@ -4,8 +4,8 @@ import { sequelize } from './models/index.js';
 const conexion=async()=>{
     try {
         await sequelize.sync({force:false})
-        app.listen(3000)
-        console.log("el servicio esta corriendo en el puerto 3000");
+        app.listen(4000)
+        console.log("el servicio esta corriendo en el puerto 4000");
     } catch (error) {
         console.log("No esta funcionando");
     }

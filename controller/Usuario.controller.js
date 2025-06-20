@@ -1,4 +1,4 @@
-import { sequelize } from "../db"
+import { sequelize } from "../db.js"
 import { Usuarios } from "../models/Usuarios.js"
 import { validationResult } from "express-validator"
 
