@@ -8,7 +8,10 @@ export const obtenerDocumento=async(req,res)=>{
         if (data.length===0) {
             return res.status(404).json({error:"no hay documentos disponibles"})
         }
-        res.status(200).json({message:"documento disponibles"})
+        res.status(200).json({
+            message:"documento disponibles",
+            data:data
+        })
     } catch (error) {
         console.log("error al obtener lo tipos de documento");
         res.status(500).json({

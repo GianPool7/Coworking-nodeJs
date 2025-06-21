@@ -7,7 +7,10 @@ export const obtenerOficinas=async(req,res)=>{
         if (data.length===0) {
             return res.status(404).json({error:"No hay datos"})
         }
-        res.json(data)
+        res.status(200).json({
+            message:"listado de oficinas",
+            data:data
+        })
     } catch (error) {
         console.log("Error al obtener las oficinas");
         res.status(500).json({error:"No hay dato"})
