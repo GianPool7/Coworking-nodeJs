@@ -23,14 +23,13 @@ export const crearUsuarios=async(req,res)=>{
         return res.status(400).json({error:error.array()})
     }
 
-    const {email,password,rol,empleadoId}=req.body
+    const {email,password,idRol}=req.body
 
     try {
         const dataNew=await Usuarios.create({
             email,
             password,
-            rol,
-            empleadoId
+            idRol
         })
         res.status(200).json(
             {
@@ -50,15 +49,14 @@ export const actualizarUsuario=async(req,res)=>{
         return res.status(400).json({errores:errores.array()})
     }
     
-    const{email,password,rol,empleadoId}=req.body
+    const{email,password,idRol}=req.body
     const{id}=req.params
 
     try {
         const [dataUpdate]=await Usuarios.update({
             email,
             password,
-            rol,
-            empleadoId
+            idRol
         },{
             where:{
                 id

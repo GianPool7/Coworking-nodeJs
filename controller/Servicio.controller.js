@@ -26,15 +26,11 @@ export const obtenerServicio=async(req,res)=>{
 }
 
 export const createServicio=async(req,res)=>{
-
     const error=validationResult(req)
-
     if (!error.isEmpty()) {
         return res.status(400).json({error:error.array()})
     }
-
     const {nombre}=req.body
-
     try {
         const data=await Servicios.create({
             nombre
@@ -53,17 +49,14 @@ export const createServicio=async(req,res)=>{
 }
 
 export const actualizarServicio=async(req,res)=>{
-
     const errores=validationResult(req)
     if (!errores.isEmpty()) {
         return res.status(400).json({errores:errores.array()})
     }
-
     const {nombre}=req.body
     const {id}=req.params
-
     try {
-        const data=await Servicios.update({
+        const [data]=await Servicios.update({
             nombre,
         },
         {
@@ -72,6 +65,9 @@ export const actualizarServicio=async(req,res)=>{
             }
         }
     )
+    if (data===0) {
+        return res.status(404).json({error:"No se pudo realizar la actualizacion correcta"})
+    }
     res.status(200).json({message:"Se actualizo correctamente",data})
 
     } catch (error) {
@@ -84,13 +80,15 @@ export const actualizarServicio=async(req,res)=>{
 
 export const eliminarServicio=async(req,res)=>{
     const {id}=req.params
-
     try {
         const data=await Servicios.destroy({
             where:{
                 id
             }
         })
+        if (data===0) {
+            return res.status(404).json({error:"Error al eliminar el servicio"})
+        }
         res.status(200).json({message:"Se elimino correctamente",data})
     } catch (error) {
         console.log("Error al eliminar");
@@ -102,7 +100,6 @@ export const eliminarServicio=async(req,res)=>{
 
 export const servicioXid=async(req,res)=>{
     const {id}=req.params
-
     try {
         const data=await Servicios.findOne({
             where:{

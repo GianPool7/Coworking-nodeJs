@@ -1,5 +1,6 @@
 import { sequelize } from "../db.js";
 import {Rol} from '../models/Rol.js'
+import { validationResult } from "express-validator";
 
 export const obtenerRoles=async(req,res)=>{
     try {
@@ -22,6 +23,13 @@ export const obtenerRoles=async(req,res)=>{
 }
 
 export const crearRoles=async(req,res)=>{
+
+    const error=validationResult(req)
+
+    if (!error.isEmpty()) {
+        return res.status(404).json({error:"verificar que todos los campos esten completo"})
+    }
+
     const {rol}=req.body
     try {
 
@@ -47,9 +55,12 @@ export const crearRoles=async(req,res)=>{
 }
 
 export const actualizaRol=async(req,res)=>{
+    const error=validationResult(req)
+    if (!error.isEmpty()) {
+        return res.status(404).json({error:"los campos son obligatorios"})
+    }
     const {rol}=req.body
     const {id}=req.params
-
     try {
         const data=await Rol.update({
             rol
@@ -61,7 +72,7 @@ export const actualizaRol=async(req,res)=>{
         if (data.length===0) {
             return res.status(404).json({error:"no hay roles disponibles"})
         }
-        res.status(200).json({message:"roles disponibles",data})
+        res.status(200).json({message:"Se actualizo correctamente",data:data})
     } catch (error) {
         console.log("no se pudo actualizar el rol");
         res.status(500).json({
@@ -73,7 +84,6 @@ export const actualizaRol=async(req,res)=>{
 
 export const eliminarRol=async(req,res)=>{
     const {id}=req.params
-
     try {
         const data=await Rol.destroy({
             where:{
