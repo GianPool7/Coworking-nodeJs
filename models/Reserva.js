@@ -3,10 +3,10 @@ import { DataTypes } from "sequelize";
 
 export const Reserva=sequelize.define("Reserva",{
     id:{
-        type:DataTypes.STRING,
+        type:DataTypes.INTEGER,
         primaryKey:true,
-        allowNull:false,
-        autoIncrement: true
+        autoIncrement: true,
+        allowNull:false
     },
     hora_inicio:{
         type:DataTypes.TIME,
