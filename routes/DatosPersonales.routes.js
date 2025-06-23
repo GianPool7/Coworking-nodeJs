@@ -9,6 +9,6 @@ router.post('/datosPersonales',validarDatosPersonales,crearDatosPersonales)
 router.patch('/datosPersonales',validarDatosPersonales,actualizarDatosPersonales)
 router.delete('/datosPersonales',eliminandoDatosPersonales)
 //
-router.get('/datosPersonales')
+router.get('/datosPersonales/:id',datosPersonalesXid)
 //
 export default router;

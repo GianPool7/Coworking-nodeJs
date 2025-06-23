@@ -15,10 +15,9 @@ export const validarUsuario=[
     body('password')
         .notEmpty().escape().withMessage('La contraseña es obligatori')
         .isLength({min:8}).withMessage('Los caracteres deben ser minimo 8'),
-    body('rol')
-        .notEmpty().escape().withMessage("El rol es necesario"),
-    body('empleadoId')
-        .notEmpty().escape().withMessage("El id de empleado es necesario")
+    body('idRol')
+        .notEmpty().escape().withMessage("El rol es necesario")
+        .isNumeric().withMessage("El id del rol debe ser numero")
 ]
 // servicio
 export const validarServicio=[
@@ -63,7 +62,7 @@ export const validarOficina=[
 ]
 //oficina y servicio
 export const oficinaServicio=[
-    body('id_Oficina')
+    body('id_oficina')
         .notEmpty().escape().withMessage('Ingresar la oficina'),
     body('id_servicio')
         .notEmpty().escape().withMessage('Ingresar el servicio de la oficina')

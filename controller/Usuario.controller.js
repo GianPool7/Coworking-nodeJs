@@ -1,12 +1,13 @@
 import { sequelize } from "../db.js"
 import { Usuarios } from "../models/Usuarios.js"
+import { DatosPersonales } from '../models/DatosPersonales.js'
 import { validationResult } from "express-validator"
 
 export const obtenerUsuarios=async(req,res)=>{
     try {
         const data=await Usuarios.findAll()
         if (data.length===0) {
-            return res.status(404).json({ message: "No hay usuarios registrados", data: [] })
+            return res.status(404).json({ error: "No hay usuarios registrados", data: [] })
         }
         res.json(data)
     } catch (error) {
@@ -38,6 +39,7 @@ export const crearUsuarios=async(req,res)=>{
             },
         )
     } catch (error) {
+        console.log("Error al crear usuario",error);
         res.status(500).json({error:"Error al crear empleados"})
     }
 }
@@ -113,3 +115,13 @@ export const obtenerUsuarioXid=async(req,res)=>{
 
 }
 
+//  a esperar un poco mas que estoy buscando
+export const datosXusuario=async(req,res)=>{
+    const {id}=req.params
+
+    try {
+        const data=await DatosPersonales.findOne(id)
+    } catch (error) {
+        
+    }
+}
